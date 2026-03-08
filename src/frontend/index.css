@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Fraunces Display Font ── */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Outfit Body Font ── */
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Cinematic dark palette — obsidian + amber gold */
+    --background: 0.10 0.005 260;
+    --foreground: 0.93 0.01 90;
+
+    --card: 0.13 0.008 260;
+    --card-foreground: 0.93 0.01 90;
+
+    --popover: 0.16 0.010 260;
+    --popover-foreground: 0.93 0.01 90;
+
+    /* Amber gold primary */
+    --primary: 0.72 0.18 65;
+    --primary-foreground: 0.08 0.005 260;
+
+    --secondary: 0.18 0.010 260;
+    --secondary-foreground: 0.85 0.01 90;
+
+    --muted: 0.16 0.008 260;
+    --muted-foreground: 0.55 0.01 90;
+
+    /* Warm amber accent */
+    --accent: 0.65 0.16 68;
+    --accent-foreground: 0.08 0.005 260;
+
+    --destructive: 0.62 0.21 28;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.22 0.010 260;
+    --input: 0.20 0.010 260;
+    --ring: 0.65 0.16 68;
+
+    --chart-1: 0.72 0.18 65;
+    --chart-2: 0.60 0.15 200;
+    --chart-3: 0.55 0.18 310;
+    --chart-4: 0.68 0.14 160;
+    --chart-5: 0.62 0.21 28;
+
+    --sidebar: 0.12 0.006 260;
+    --sidebar-foreground: 0.93 0.01 90;
+    --sidebar-primary: 0.72 0.18 65;
+    --sidebar-primary-foreground: 0.08 0.005 260;
+    --sidebar-accent: 0.18 0.010 260;
+    --sidebar-accent-foreground: 0.85 0.01 90;
+    --sidebar-border: 0.22 0.010 260;
+    --sidebar-ring: 0.65 0.16 68;
+
+    /* Cinema-specific tokens */
+    --gold: 0.78 0.19 72;
+    --gold-dim: 0.62 0.15 68;
+    --film-shadow: 0 8px 32px oklch(0 0 0 / 0.6);
+    --card-glow: 0 0 24px oklch(0.72 0.18 65 / 0.15);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Film grain texture overlay */
+@layer utilities {
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+  }
+
+  .text-gold {
+    color: oklch(var(--gold));
+  }
+
+  .bg-gold {
+    background-color: oklch(var(--gold));
+  }
+
+  .border-gold {
+    border-color: oklch(var(--gold));
+  }
+
+  .cinema-shadow {
+    box-shadow: var(--film-shadow);
+  }
+
+  .card-glow {
+    box-shadow: var(--card-glow);
+  }
+
+  /* Scanline effect for video player */
+  .scanlines {
+    position: relative;
+  }
+  .scanlines::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      oklch(0 0 0 / 0.03) 2px,
+      oklch(0 0 0 / 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+}
